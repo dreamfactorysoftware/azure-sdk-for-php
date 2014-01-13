@@ -11,47 +11,46 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
- * @package   Tests\Unit\WindowsAzure\ServiceBus\Models
+ * @package   WindowsAzure\MediaServices\Models
  * @author    Azure PHP SDK <azurephpsdk@microsoft.com>
- * @copyright 2012 Microsoft Corporation
+ * @copyright Microsoft Corporation
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- * @link      https://github.com/WindowsAzure/azure-sdk-for-php
+ * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 
-namespace Tests\Unit\WindowsAzure\ServiceBus\Models;
-use WindowsAzure\ServiceBus\Models\Filter;
+namespace WindowsAzure\MediaServices\Models;
+use WindowsAzure\Common\Internal\Validate;
+
 
 /**
- * Unit tests for class Filter
+ * Represents task options enum used in media services
  *
  * @category  Microsoft
- * @package   Tests\Unit\WindowsAzure\ServiceBus\Models
+ * @package   WindowsAzure\MediaServices\Models
  * @author    Azure PHP SDK <azurephpsdk@microsoft.com>
- * @copyright 2012 Microsoft Corporation
+ * @copyright Microsoft Corporation
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- * @version   Release: @package_version@
- * @link      https://github.com/WindowsAzure/azure-sdk-for-php
+ * @version   Release: 0.3.1_2011-08
+ * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
-class FilterTest extends \PHPUnit_Framework_TestCase
+class TaskOptions
 {
     /**
-     * @covers WindowsAzure\ServiceBus\Models\Filter::__construct
+     * The options of the task "none"
+     *
+     * @var int
      */
-    public function testFilterConstructor()
-    {
-        // Setup
-        
-        // Test
-        $filter = new Filter();
-        
-        // Assert
-        $this->assertNotNull($filter);
-    }
+    const NONE = 0;
 
+    /**
+     * The options of the task "protected configuration"
+     *
+     * @var int
+     */
+    const PROTECTED_CONFIGURATION = 1;
 }
-
 
