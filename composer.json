@@ -1,9 +1,10 @@
 {
-	"name":        "dreamfactory/azure-sdk-for-php",
-	"description": "This project provides a set of PHP client libraries that make it easy to access Windows Azure tables, blobs, queues, service runtime and service management APIs.",
-	"keywords":    ["php", "azure", "sdk"],
-	"license":     "Apache-2.0",
-	"authors":     [
+	"name":              "dreamfactory/azure-sdk-for-php",
+	"version":	     "0.4.0.2",
+	"description":       "This project provides a set of PHP client libraries that make it easy to access Windows Azure tables, blobs, queues, service runtime and service management APIs.",
+	"keywords":          ["php", "azure", "sdk"],
+	"license":           "Apache-2.0",
+	"authors":           [
 		{
 			"name":  "Azure PHP SDK",
 			"email": "azurephpsdk@microsoft.com"
@@ -14,22 +15,19 @@
 			"role":  "DreamFactory Package Maintainer"
 		}
 	],
-	"require":     {
-		"pear-pear/HTTP_Request2":   "*",
-		"pear-pear/Mail_Mime":       "*",
-		"pear-pear/Mail_mimeDecode": "*"
-	
+	"require":           {
+		"pear/net_url2":         "*",
+		"pear/http_request2":    "*",
+		"pear/mail_mime":        "*",
+		"pear/mail_mime-decode": "*"
 	},
-	"repositories": [
-		{
-			"type": "pear",
-			"url":  "http://pear.php.net"
-		}
-	],
-	"autoload": {
+	"require-dev": {
+		"phpunit/phpunit": "*"
+	},
+	"minimum-stability": "dev",
+	"autoload":          {
 		"psr-0": {
 			"WindowsAzure\\": ""
 		}
 	}
-
 }
