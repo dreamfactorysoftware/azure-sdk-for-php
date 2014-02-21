@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2b4058f0c5657c7d16ffd7e77d67a324",
+    "hash": "7f515ffc8334278e96665b2f1de53eae",
     "packages": [
         {
             "name": "pear-pear.php.net/Archive_Tar",
@@ -59,10 +59,10 @@
         },
         {
             "name": "pear-pear.php.net/HTTP_Request2",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/HTTP_Request2-2.2.0.tgz",
+                "url": "http://pear.php.net/get/HTTP_Request2-2.2.1.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -72,7 +72,7 @@
                 "php": ">=5.2.0.0"
             },
             "replace": {
-                "pear-pear/http_request2": "== 2.2.0.0"
+                "pear-pear/http_request2": "== 2.2.1.0"
             },
             "type": "pear-library",
             "autoload": {
