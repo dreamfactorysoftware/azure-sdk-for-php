@@ -12,4 +12,3 @@ vendor
 nbproject
 phpcs-checkstyle.tmp
 .idea
-composer.lock

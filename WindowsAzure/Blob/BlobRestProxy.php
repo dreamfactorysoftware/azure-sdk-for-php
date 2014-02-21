@@ -35,7 +35,7 @@ use WindowsAzure\Blob\Models\ListContainersOptions;
 use WindowsAzure\Blob\Models\ListContainersResult;
 use WindowsAzure\Blob\Models\CreateContainerOptions;
 use WindowsAzure\Blob\Models\GetContainerPropertiesResult;
-use WindowsAzure\Blob\Models\GetContainerAclResult;
+use WindowsAzure\Blob\Models\GetContainerACLResult;
 use WindowsAzure\Blob\Models\SetContainerMetadataOptions;
 use WindowsAzure\Blob\Models\DeleteContainerOptions;
 use WindowsAzure\Blob\Models\ListBlobsOptions;
@@ -84,7 +84,7 @@ use WindowsAzure\Blob\Models\BreakLeaseResult;
  * @author    Azure PHP SDK <azurephpsdk@microsoft.com>
  * @copyright 2012 Microsoft Corporation
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
- * @version   Release: 0.3.1_2011-08
+ * @version   Release: 0.4.0_2014-01
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
