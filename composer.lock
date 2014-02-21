@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "47083de0cb597f27e8c68eb1377b37cc",
+    "hash": "ae856ee13e263f2d60cc4f5f5213a938",
     "packages": [
         {
             "name": "fpoirotte/http_request2",
