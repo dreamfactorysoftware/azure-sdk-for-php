@@ -69,7 +69,7 @@ class ChannelManager
     /**
      * Channel manager main entry.
      *
-     * @return none
+     * @return void
      */
     public static function main()
     {
@@ -98,7 +98,7 @@ class ChannelManager
      * 4) Upload the channel back.
      * 5) Verify that latest package is installable.
      *
-     * @return none
+     * @return void
      */
     private static function _manageChannel()
     {
@@ -145,7 +145,7 @@ class ChannelManager
      * 4) Writes pirum.xml.
      * 5) Generates the channel files.
      *
-     * @return none
+     * @return void
      */
     private static function _createNewChannel()
     {
@@ -177,7 +177,7 @@ class ChannelManager
     /**
      * Tries to install the new released package.
      *
-     * @return none
+     * @return void
      */
     private static function _verifyInstall()
     {
@@ -193,7 +193,7 @@ class ChannelManager
      *
      * @param string $container The container name.
      *
-     * @return none
+     * @return void
      */
     private static function _clearContainer($container)
     {
@@ -210,7 +210,7 @@ class ChannelManager
      * @param string $containerName The container name.
      * @param string $dirName       The directory name.
      *
-     * @return none
+     * @return void
      */
     private static function _downloadContainerInDir($containerName, $dirName)
     {
@@ -232,7 +232,7 @@ class ChannelManager
     /**
      * Downloads the channel files.
      *
-     * @return none
+     * @return void
      */
     private static function _downloadChannel()
     {
@@ -245,7 +245,7 @@ class ChannelManager
     /**
      * Uploads the channel files to blob storage.
      *
-     * @return none
+     * @return void
      *
      * @throws \Exception
      */
@@ -296,7 +296,7 @@ class ChannelManager
      * @param string $dir    The directory path.
      * @param array  &$files The directory files.
      *
-     * @return none
+     * @return void
      */
     private static function _rscandir($dir, &$files) {
         foreach(glob($dir . '/*') as $file) {
@@ -313,7 +313,7 @@ class ChannelManager
      *
      * @param string $container The container name.
      *
-     * @return none
+     * @return void
      */
     private static function _tryCreateContainer($container)
     {
@@ -332,7 +332,7 @@ class ChannelManager
     /**
      * Adds new package.
      *
-     * @return none
+     * @return void
      */
     private static function _addPackage()
     {
@@ -346,7 +346,7 @@ class ChannelManager
     /**
      * Removes existing package.
      *
-     * @return none
+     * @return void
      */
     private static function _removePackage()
     {
@@ -370,7 +370,7 @@ class ChannelManager
      *
      * @param string $dirName The directory name.
      *
-     * @return none
+     * @return void
      */
     private static function _createDir($dirName)
     {
@@ -386,7 +386,7 @@ class ChannelManager
      *
      * @param string $command The command to execute.
      *
-     * @return none
+     * @return void
      */
     private static function _executeCommand($command)
     {
@@ -403,7 +403,7 @@ class ChannelManager
      *
      * @param string $dir The directory path.
      *
-     * @return none
+     * @return void
      */
     private static function _rrmdir($dir)
     {
