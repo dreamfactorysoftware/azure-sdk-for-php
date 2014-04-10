@@ -40,104 +40,104 @@ use WindowsAzure\Common\Internal\Validate;
  */
 class AccessPolicy
 {
-    /**
-     * @var string
-     */
-    private $_start;
+	/**
+	 * @var string
+	 */
+	private $_start;
 
-    /**
-     * @var \DateTime
-     */
-    private $_expiry;
+	/**
+	 * @var \DateTime
+	 */
+	private $_expiry;
 
-    /**
-     * @var \DateTime
-     */
-    private $_permission;
+	/**
+	 * @var \DateTime
+	 */
+	private $_permission;
 
-    /**
-     * Gets start.
-     *
-     * @return \DateTime.
-     */
-    public function getStart()
-    {
-        return $this->_start;
-    }
+	/**
+	 * Gets start.
+	 *
+	 * @return \DateTime.
+	 */
+	public function getStart()
+	{
+		return $this->_start;
+	}
 
-    /**
-     * Sets start.
-     *
-     * @param \DateTime $start value.
-     *
-     * @return void
-     */
-    public function setStart($start)
-    {
-        Validate::isDate($start);
-        $this->_start = $start;
-    }
+	/**
+	 * Sets start.
+	 *
+	 * @param \DateTime $start value.
+	 *
+	 * @return void
+	 */
+	public function setStart( $start )
+	{
+		Validate::isDate( $start );
+		$this->_start = $start;
+	}
 
-    /**
-     * Gets expiry.
-     *
-     * @return \DateTime.
-     */
-    public function getExpiry()
-    {
-        return $this->_expiry;
-    }
+	/**
+	 * Gets expiry.
+	 *
+	 * @return \DateTime.
+	 */
+	public function getExpiry()
+	{
+		return $this->_expiry;
+	}
 
-    /**
-     * Sets expiry.
-     *
-     * @param \DateTime $expiry value.
-     *
-     * @return void
-     */
-    public function setExpiry($expiry)
-    {
-        Validate::isDate($expiry);
-        $this->_expiry = $expiry;
-    }
+	/**
+	 * Sets expiry.
+	 *
+	 * @param \DateTime $expiry value.
+	 *
+	 * @return void
+	 */
+	public function setExpiry( $expiry )
+	{
+		Validate::isDate( $expiry );
+		$this->_expiry = $expiry;
+	}
 
-    /**
-     * Gets permission.
-     *
-     * @return string.
-     */
-    public function getPermission()
-    {
-        return $this->_permission;
-    }
+	/**
+	 * Gets permission.
+	 *
+	 * @return string.
+	 */
+	public function getPermission()
+	{
+		return $this->_permission;
+	}
 
-    /**
-     * Sets permission.
-     *
-     * @param string $permission value.
-     *
-     * @return void
-     */
-    public function setPermission($permission)
-    {
-        $this->_permission = $permission;
-    }
+	/**
+	 * Sets permission.
+	 *
+	 * @param string $permission value.
+	 *
+	 * @return void
+	 */
+	public function setPermission( $permission )
+	{
+		$this->_permission = $permission;
+	}
 
-    /**
-     * Converts this current object to XML representation.
-     *
-     * @return array.
-     */
-    public function toArray()
-    {
-        $array = array();
+	/**
+	 * Converts this current object to XML representation.
+	 *
+	 * @return array.
+	 */
+	public function toArray()
+	{
+		$array = array();
 
-        $array['Start']      = Utilities::convertToEdmDateTime($this->_start);
-        $array['Expiry']     = Utilities::convertToEdmDateTime($this->_expiry);
-        $array['Permission'] = $this->_permission;
+		$array['Start'] = Utilities::convertToEdmDateTime( $this->_start );
+		$array['Expiry'] = Utilities::convertToEdmDateTime( $this->_expiry );
+		$array['Permission'] = $this->_permission;
 
-        return $array;
-    }
+		return $array;
+	}
 }
 
 

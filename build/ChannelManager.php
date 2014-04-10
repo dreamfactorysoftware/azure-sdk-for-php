@@ -73,20 +73,20 @@ class ChannelManager
      */
     public static function main()
     {
-        self::$_blobRestProxy = self::_createBlobRestProxy();
+        static::$_blobRestProxy = static::_createBlobRestProxy();
 
         if (   isset($_GET['release'])
             || (isset($_SERVER['argv'])
             && @$_SERVER['argv'][1] == 'release')
         ) {
             // Ship a new release
-            self::_downloadChannel();
-            self::_addPackage();
-            self::_uploadChannel();
-            self::_verifyInstall();
+            static::_downloadChannel();
+            static::_addPackage();
+            static::_uploadChannel();
+            static::_verifyInstall();
         } else {
             // Prompt user to manage channel
-            self::_manageChannel();
+            static::_manageChannel();
         }
     }
 
@@ -102,39 +102,39 @@ class ChannelManager
      */
     private static function _manageChannel()
     {
-        $answer = self::_promptMsg('Create new channel? [n]:', true);
+        $answer = static::_promptMsg('Create new channel? [n]:', true);
         switch ($answer) {
         case 'y':
-            self::_createNewChannel();
-            self::_uploadChannel();
-            self::_executeCommand('pear channel-discover ' . CHANNEL_NAME);
+            static::_createNewChannel();
+            static::_uploadChannel();
+            static::_executeCommand('pear channel-discover ' . CHANNEL_NAME);
             break;
         case 'n':
         case '':
-            self::_downloadChannel();
+            static::_downloadChannel();
             break;
         }
 
         do {
-        $answer = self::_promptMsg('Want to remove exisitng package? [n]:', true);
+        $answer = static::_promptMsg('Want to remove exisitng package? [n]:', true);
         switch ($answer) {
         case 'y':
-            self::_removePackage();
+            static::_removePackage();
             break;
         }
         } while ($answer == 'y');
 
-        $answer = self::_promptMsg('Want to add current package? [y]:', true);
+        $answer = static::_promptMsg('Want to add current package? [y]:', true);
         switch ($answer) {
         case 'y':
         case '':
-            self::_addPackage();
+            static::_addPackage();
             break;
         }
 
-        self::_uploadChannel();
+        static::_uploadChannel();
 
-        self::_verifyInstall();
+        static::_verifyInstall();
     }
 
     /**
@@ -150,9 +150,9 @@ class ChannelManager
     private static function _createNewChannel()
     {
         echo "Removing old channel files if any...\n";
-        self::_clearContainer(CHANNEL_MAIN_CONTAINER, self::$_blobRestProxy);
-        self::_clearContainer(CHANNEL_GET_CONTAINER, self::$_blobRestProxy);
-        self::_clearContainer(CHANNEL_REST_CONTAINER, self::$_blobRestProxy);
+        static::_clearContainer(CHANNEL_MAIN_CONTAINER, static::$_blobRestProxy);
+        static::_clearContainer(CHANNEL_GET_CONTAINER, static::$_blobRestProxy);
+        static::_clearContainer(CHANNEL_REST_CONTAINER, static::$_blobRestProxy);
 
         $xmlSerializer = new XmlSerializer();
         $properties    = array(XmlSerializer::ROOT_NAME => 'server');
@@ -165,13 +165,13 @@ class ChannelManager
         $fileContents  = $xmlSerializer->serialize($fileArray, $properties);
         $dirName       = CHANNEL_DIR_NAME;
 
-        self::_createDir(CHANNEL_DIR_NAME);
+        static::_createDir(CHANNEL_DIR_NAME);
 
         $filePath  = dirname(__FILE__) . DIRECTORY_SEPARATOR  . $dirName;
         $filePath .= DIRECTORY_SEPARATOR . 'pirum.xml';
         file_put_contents($filePath, $fileContents);
 
-        self::_executeCommand("pirum build $dirName/");
+        static::_executeCommand("pirum build $dirName/");
     }
 
     /**
@@ -182,10 +182,10 @@ class ChannelManager
     private static function _verifyInstall()
     {
         echo "Test installing the package...\n";
-        self::_executeCommand('pear uninstall WindowsAzure/WindowsAzure');
-        self::_executeCommand('pear channel-update WindowsAzure');
-        self::_executeCommand('pear clear-cache');
-        self::_executeCommand('pear install WindowsAzure/WindowsAzure');
+        static::_executeCommand('pear uninstall WindowsAzure/WindowsAzure');
+        static::_executeCommand('pear channel-update WindowsAzure');
+        static::_executeCommand('pear clear-cache');
+        static::_executeCommand('pear install WindowsAzure/WindowsAzure');
     }
 
     /**
@@ -197,10 +197,10 @@ class ChannelManager
      */
     private static function _clearContainer($container)
     {
-        $blobs = self::$_blobRestProxy->listBlobs($container);
+        $blobs = static::$_blobRestProxy->listBlobs($container);
         $blobs = $blobs->getBlobs();
         foreach ($blobs as $blob) {
-            self::$_blobRestProxy->deleteBlob($container, $blob->getName());
+            static::$_blobRestProxy->deleteBlob($container, $blob->getName());
         }
     }
 
@@ -214,12 +214,12 @@ class ChannelManager
      */
     private static function _downloadContainerInDir($containerName, $dirName)
     {
-        self::_createDir($dirName);
-        $blobs = self::$_blobRestProxy->listBlobs($containerName);
+        static::_createDir($dirName);
+        $blobs = static::$_blobRestProxy->listBlobs($containerName);
         $blobs = $blobs->getBlobs();
         foreach ($blobs as $blob) {
             $name    = $blob->getName();
-            $blob    = self::$_blobRestProxy->getBlob($containerName, $name);
+            $blob    = static::$_blobRestProxy->getBlob($containerName, $name);
             $file    = $dirName . '/' . $name;
             $dir     = dirname($file);
             if (!is_dir($dir)) {
@@ -237,9 +237,9 @@ class ChannelManager
     private static function _downloadChannel()
     {
         echo "Downloading the channel files...\n";
-        self::_downloadContainerInDir(CHANNEL_MAIN_CONTAINER, CHANNEL_DIR_NAME);
-        self::_downloadContainerInDir(CHANNEL_GET_CONTAINER, CHANNEL_DIR_NAME . '/get');
-        self::_downloadContainerInDir(CHANNEL_REST_CONTAINER, CHANNEL_DIR_NAME . '/rest');
+        static::_downloadContainerInDir(CHANNEL_MAIN_CONTAINER, CHANNEL_DIR_NAME);
+        static::_downloadContainerInDir(CHANNEL_GET_CONTAINER, CHANNEL_DIR_NAME . '/get');
+        static::_downloadContainerInDir(CHANNEL_REST_CONTAINER, CHANNEL_DIR_NAME . '/rest');
     }
 
     /**
@@ -252,13 +252,13 @@ class ChannelManager
     private static function _uploadChannel()
     {
         $names = array();
-        self::_rscandir('channel', $names);
+        static::_rscandir('channel', $names);
         $contents = array_map('file_get_contents', $names);
 
         echo "Uploading channel files to the cloud...\n";
-        self::_tryCreateContainer(CHANNEL_MAIN_CONTAINER);
-        self::_tryCreateContainer(CHANNEL_GET_CONTAINER);
-        self::_tryCreateContainer(CHANNEL_REST_CONTAINER);
+        static::_tryCreateContainer(CHANNEL_MAIN_CONTAINER);
+        static::_tryCreateContainer(CHANNEL_GET_CONTAINER);
+        static::_tryCreateContainer(CHANNEL_REST_CONTAINER);
 
         $channelDir = 'channel/';
         $getDir     = $channelDir . 'get/';
@@ -282,7 +282,7 @@ class ChannelManager
                 throw new \Exception('incorrect file path.');
             }
 
-            self::$_blobRestProxy->createBlockBlob(
+            static::$_blobRestProxy->createBlockBlob(
                 $container,
                 $names[$i],
                 $contents[$i],
@@ -301,7 +301,7 @@ class ChannelManager
     private static function _rscandir($dir, &$files) {
         foreach(glob($dir . '/*') as $file) {
             if(is_dir($file)) {
-                self::_rscandir($file, $files);
+                static::_rscandir($file, $files);
             } else {
                 $files[] = $file;
 			}
@@ -320,7 +320,7 @@ class ChannelManager
         try {
             $options = new CreateContainerOptions();
             $options->setPublicAccess(PublicAccessType::BLOBS_ONLY);
-            self::$_blobRestProxy->createContainer($container, $options);
+            static::$_blobRestProxy->createContainer($container, $options);
         } catch (ServiceException $e) {
             if ($e->getCode() != 409) {
                 print_r($e);
@@ -336,11 +336,11 @@ class ChannelManager
      */
     private static function _addPackage()
     {
-        self::_executeCommand('php package.php make');
-        self::_executeCommand('pear package package.xml');
+        static::_executeCommand('php package.php make');
+        static::_executeCommand('pear package package.xml');
         $files = glob('*.tgz');
         $name  = $files[count($files) - 1];
-        self::_executeCommand("pirum add channel $name");
+        static::_executeCommand("pirum add channel $name");
     }
 
     /**
@@ -359,9 +359,9 @@ class ChannelManager
             for ($i = 0; $i < count($files); $i++) {
                 $msg .= ($i + 1) . '. ' . $files[$i] . "\n";
             }
-            $answer = self::_promptMsg($msg . 'Choose package to remove:');
+            $answer = static::_promptMsg($msg . 'Choose package to remove:');
             $name   = $files[$answer - 1];
-            self::_executeCommand("pirum remove channel $name");
+            static::_executeCommand("pirum remove channel $name");
         }
     }
 
@@ -375,7 +375,7 @@ class ChannelManager
     private static function _createDir($dirName)
     {
         // Clear previous files if any
-        self::_rrmdir($dirName);
+        static::_rrmdir($dirName);
 
         // Create new directory
         mkdir($dirName);
@@ -409,7 +409,7 @@ class ChannelManager
     {
         foreach(glob($dir . '/*') as $file) {
             if(is_dir($file)) {
-                self::_rrmdir($file);
+                static::_rrmdir($file);
             } else {
                 unlink($file);
             }

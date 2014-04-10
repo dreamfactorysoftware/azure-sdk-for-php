@@ -95,7 +95,7 @@ class CloudSubscription
      */
     public function createStorageService(
         $name,
-        $execType = self:: SYNCHRONOUS,
+        $execType = static:: SYNCHRONOUS,
         $location = 'West US'
     )
     {
@@ -111,14 +111,14 @@ class CloudSubscription
                 base64_encode( $name ),
                 $options
             );
-            if ( $execType == self::SYNCHRONOUS )
+            if ( $execType == static::SYNCHRONOUS )
             {
                 $this->_blockUntilAsyncFinish( $result->getRequestId() );
             }
             $newStorageService = true;
         }
 
-        if ( !$newStorageService && $execType != self::ASYNCHRONOUS )
+        if ( !$newStorageService && $execType != static::ASYNCHRONOUS )
         {
             $keys = $this->_proxy->getStorageServiceKeys( $name );
             $properties = $this->_proxy->getStorageServiceProperties( $name );

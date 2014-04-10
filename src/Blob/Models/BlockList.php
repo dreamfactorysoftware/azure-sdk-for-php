@@ -23,7 +23,9 @@
  */
 
 namespace WindowsAzure\Blob\Models;
+
 use WindowsAzure\Common\Internal\Resources;
+use WindowsAzure\Common\Internal\Serialization\ISerializer;
 use WindowsAzure\Common\Internal\Serialization\XmlSerializer;
 use WindowsAzure\Common\Internal\Validate;
 
@@ -40,135 +42,139 @@ use WindowsAzure\Common\Internal\Validate;
  */
 class BlockList
 {
-    /**
-     * @var array
-     */
-    private $_entries;
-    public static $xmlRootName = 'BlockList';
+	/**
+	 * @var array
+	 */
+	private $_entries;
+	public static $xmlRootName = 'BlockList';
 
-    /**
-     * Creates block list from array of blocks.
-     *
-     * @param array $array The blocks array.
-     *
-     * @return BlockList
-     */
-    public static function create($array)
-    {
-        $blockList = new BlockList();
+	/**
+	 * Creates block list from array of blocks.
+	 *
+	 * @param array $array The blocks array.
+	 *
+	 * @return BlockList
+	 */
+	public static function create( $array )
+	{
+		$blockList = new BlockList();
 
-        foreach ($array as $value) {
-            $blockList->addEntry($value->getBlockId(), $value->getType());
-        }
+		foreach ( $array as $value )
+		{
+			$blockList->addEntry( $value->getBlockId(), $value->getType() );
+		}
 
-        return $blockList;
-    }
+		return $blockList;
+	}
 
-    /**
-     * Adds new entry to the block list entries.
-     *
-     * @param string $blockId The block id.
-     * @param string $type    The entry type, you can use BlobBlockType.
-     *
-     * @return void
-     */
-    public function addEntry($blockId, $type)
-    {
-        Validate::isString($blockId, 'blockId');
-        Validate::isTrue(
-            BlobBlockType::isValid($type),
-            sprintf(Resources::INVALID_BTE_MSG, get_class(new BlobBlockType()))
-        );
-        $block = new Block();
-        $block->setBlockId($blockId);
-        $block->setType($type);
+	/**
+	 * Adds new entry to the block list entries.
+	 *
+	 * @param string $blockId The block id.
+	 * @param string $type    The entry type, you can use BlobBlockType.
+	 *
+	 * @return void
+	 */
+	public function addEntry( $blockId, $type )
+	{
+		Validate::isString( $blockId, 'blockId' );
+		Validate::isTrue(
+			BlobBlockType::isValid( $type ),
+			sprintf( Resources::INVALID_BTE_MSG, get_class( new BlobBlockType() ) )
+		);
+		$block = new Block();
+		$block->setBlockId( $blockId );
+		$block->setType( $type );
 
-        $this->_entries[] = $block;
-    }
+		$this->_entries[] = $block;
+	}
 
-    /**
-     * Addds committed block entry.
-     *
-     * @param string $blockId The block id.
-     *
-     * @return void
-     */
-    public function addCommittedEntry($blockId)
-    {
-        $this->addEntry($blockId, BlobBlockType::COMMITTED_TYPE);
-    }
+	/**
+	 * Addds committed block entry.
+	 *
+	 * @param string $blockId The block id.
+	 *
+	 * @return void
+	 */
+	public function addCommittedEntry( $blockId )
+	{
+		$this->addEntry( $blockId, BlobBlockType::COMMITTED_TYPE );
+	}
 
-    /**
-     * Addds uncommitted block entry.
-     *
-     * @param string $blockId The block id.
-     *
-     * @return void
-     */
-    public function addUncommittedEntry($blockId)
-    {
-        $this->addEntry($blockId, BlobBlockType::UNCOMMITTED_TYPE);
-    }
+	/**
+	 * Addds uncommitted block entry.
+	 *
+	 * @param string $blockId The block id.
+	 *
+	 * @return void
+	 */
+	public function addUncommittedEntry( $blockId )
+	{
+		$this->addEntry( $blockId, BlobBlockType::UNCOMMITTED_TYPE );
+	}
 
-    /**
-     * Addds latest block entry.
-     *
-     * @param string $blockId The block id.
-     *
-     * @return void
-     */
-    public function addLatestEntry($blockId)
-    {
-        $this->addEntry($blockId, BlobBlockType::LATEST_TYPE);
-    }
+	/**
+	 * Addds latest block entry.
+	 *
+	 * @param string $blockId The block id.
+	 *
+	 * @return void
+	 */
+	public function addLatestEntry( $blockId )
+	{
+		$this->addEntry( $blockId, BlobBlockType::LATEST_TYPE );
+	}
 
-    /**
-     * Gets blob block entry.
-     *
-     * @param string $blockId The id of the block.
-     *
-     * @return Block
-     */
-    public function getEntry($blockId)
-    {
-        foreach ($this->_entries as $value) {
-            if ($blockId == $value->getBlockId()) {
-                return $value;
-            }
-        }
+	/**
+	 * Gets blob block entry.
+	 *
+	 * @param string $blockId The id of the block.
+	 *
+	 * @return Block
+	 */
+	public function getEntry( $blockId )
+	{
+		foreach ( $this->_entries as $value )
+		{
+			if ( $blockId == $value->getBlockId() )
+			{
+				return $value;
+			}
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * Gets all blob block entries.
-     *
-     * @return string
-     */
-    public function getEntries()
-    {
-        return $this->_entries;
-    }
+	/**
+	 * Gets all blob block entries.
+	 *
+	 * @return string
+	 */
+	public function getEntries()
+	{
+		return $this->_entries;
+	}
 
-    /**
-     * Converts the  BlockList object to XML representation
-     *
-     * @param XmlSerializer $xmlSerializer The XML serializer.
-     *
-     * @return string
-     */
-    public function toXml($xmlSerializer)
-    {
-        $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);
-        $array      = array();
+	/**
+	 * Converts the  BlockList object to XML representation
+	 *
+	 * @param XmlSerializer|ISerializer $xmlSerializer The XML serializer.
+	 *
+	 * @return string
+	 */
+	public function toXml( $xmlSerializer )
+	{
+		$properties = array( XmlSerializer::ROOT_NAME => static::$xmlRootName );
+		$array = array();
 
-        foreach ($this->_entries as $value) {
-            $array[] = array(
-                $value->getType() => base64_encode($value->getBlockId())
-            );
-        }
+		foreach ( $this->_entries as $value )
+		{
+			$array[] = array(
+				$value->getType() => base64_encode( $value->getBlockId() )
+			);
+		}
 
-        return $xmlSerializer->serialize($array, $properties);
-    }
+		return $xmlSerializer->serialize( $array, $properties );
+	}
 }
 

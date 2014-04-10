@@ -71,7 +71,7 @@ class CopyBlobOptions extends BlobServiceOptions
     /**
      * Gets access condition
      *
-     * @return AccessCondition
+     * @return $this
      */
     public function getAccessCondition()
     {
@@ -85,7 +85,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition( $accessCondition )
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -93,7 +93,7 @@ class CopyBlobOptions extends BlobServiceOptions
     /**
      * Gets source access condition
      *
-     * @return SourceAccessCondition
+     * @return AccessCondition
      */
     public function getSourceAccessCondition()
     {
@@ -107,7 +107,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setSourceAccessCondition($sourceAccessCondition)
+    public function setSourceAccessCondition( $sourceAccessCondition )
     {
         $this->_sourceAccessCondition = $sourceAccessCondition;
     }
@@ -129,7 +129,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata( $metadata )
     {
         $this->_metadata = $metadata;
     }
@@ -151,7 +151,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setSourceSnapshot($sourceSnapshot)
+    public function setSourceSnapshot( $sourceSnapshot )
     {
         $this->_sourceSnapshot = $sourceSnapshot;
     }
@@ -173,7 +173,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setLeaseId($leaseId)
+    public function setLeaseId( $leaseId )
     {
         $this->_leaseId = $leaseId;
     }
@@ -195,7 +195,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setSourceLeaseId($sourceLeaseId)
+    public function setSourceLeaseId( $sourceLeaseId )
     {
         $this->_sourceLeaseId = $sourceLeaseId;
     }

@@ -59,7 +59,7 @@ class AcquireLeaseOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition( $accessCondition )
     {
         $this->_accessCondition = $accessCondition;
     }

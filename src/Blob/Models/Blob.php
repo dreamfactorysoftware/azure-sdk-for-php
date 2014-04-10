@@ -37,140 +37,140 @@ namespace WindowsAzure\Blob\Models;
  */
 class Blob
 {
-    /**
-     * @var string
-     */
-    private $_name;
+	/**
+	 * @var string
+	 */
+	private $_name;
 
-    /**
-     * @var string
-     */
-    private $_url;
+	/**
+	 * @var string
+	 */
+	private $_url;
 
-    /**
-     * @var string
-     */
-    private $_snapshot;
+	/**
+	 * @var string
+	 */
+	private $_snapshot;
 
-    /**
-     * @var array
-     */
-    private $_metadata;
+	/**
+	 * @var array
+	 */
+	private $_metadata;
 
-    /**
-     * @var BlobProperties
-     */
-    private $_properties;
+	/**
+	 * @var BlobProperties
+	 */
+	private $_properties;
 
-    /**
-     * Gets blob name.
-     *
-     * @return string.
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
+	/**
+	 * Gets blob name.
+	 *
+	 * @return string.
+	 */
+	public function getName()
+	{
+		return $this->_name;
+	}
 
-    /**
-     * Sets blob name.
-     *
-     * @param string $name value.
-     *
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-    }
+	/**
+	 * Sets blob name.
+	 *
+	 * @param string $name value.
+	 *
+	 * @return void
+	 */
+	public function setName( $name )
+	{
+		$this->_name = $name;
+	}
 
-    /**
-     * Gets blob snapshot.
-     *
-     * @return string.
-     */
-    public function getSnapshot()
-    {
-        return $this->_snapshot;
-    }
+	/**
+	 * Gets blob snapshot.
+	 *
+	 * @return string.
+	 */
+	public function getSnapshot()
+	{
+		return $this->_snapshot;
+	}
 
-    /**
-     * Sets blob snapshot.
-     *
-     * @param string $snapshot value.
-     *
-     * @return void
-     */
-    public function setSnapshot($snapshot)
-    {
-        $this->_snapshot = $snapshot;
-    }
+	/**
+	 * Sets blob snapshot.
+	 *
+	 * @param string $snapshot value.
+	 *
+	 * @return void
+	 */
+	public function setSnapshot( $snapshot )
+	{
+		$this->_snapshot = $snapshot;
+	}
 
-    /**
-     * Gets blob url.
-     *
-     * @return string.
-     */
-    public function getUrl()
-    {
-        return $this->_url;
-    }
+	/**
+	 * Gets blob url.
+	 *
+	 * @return string.
+	 */
+	public function getUrl()
+	{
+		return $this->_url;
+	}
 
-    /**
-     * Sets blob url.
-     *
-     * @param string $url value.
-     *
-     * @return void
-     */
-    public function setUrl($url)
-    {
-        $this->_url = $url;
-    }
+	/**
+	 * Sets blob url.
+	 *
+	 * @param string $url value.
+	 *
+	 * @return void
+	 */
+	public function setUrl( $url )
+	{
+		$this->_url = $url;
+	}
 
-    /**
-     * Gets blob metadata.
-     *
-     * @return array.
-     */
-    public function getMetadata()
-    {
-        return $this->_metadata;
-    }
+	/**
+	 * Gets blob metadata.
+	 *
+	 * @return array.
+	 */
+	public function getMetadata()
+	{
+		return $this->_metadata;
+	}
 
-    /**
-     * Sets blob metadata.
-     *
-     * @param string $metadata value.
-     *
-     * @return void
-     */
-    public function setMetadata($metadata)
-    {
-        $this->_metadata = $metadata;
-    }
+	/**
+	 * Sets blob metadata.
+	 *
+	 * @param string $metadata value.
+	 *
+	 * @return void
+	 */
+	public function setMetadata( $metadata )
+	{
+		$this->_metadata = $metadata;
+	}
 
-    /**
-     * Gets blob properties.
-     *
-     * @return BlobProperties.
-     */
-    public function getProperties()
-    {
-        return $this->_properties;
-    }
+	/**
+	 * Gets blob properties.
+	 *
+	 * @return BlobProperties.
+	 */
+	public function getProperties()
+	{
+		return $this->_properties;
+	}
 
-    /**
-     * Sets blob properties.
-     *
-     * @param BlobProperties $properties value.
-     *
-     * @return void
-     */
-    public function setProperties($properties)
-    {
-        $this->_properties = $properties;
-    }
+	/**
+	 * Sets blob properties.
+	 *
+	 * @param BlobProperties $properties value.
+	 *
+	 * @return void
+	 */
+	public function setProperties( $properties )
+	{
+		$this->_properties = $properties;
+	}
 }
 
 

@@ -23,6 +23,7 @@
  */
 
 namespace WindowsAzure\Blob\Models;
+
 use WindowsAzure\Common\Internal\Resources;
 use WindowsAzure\Common\Internal\Utilities;
 
@@ -39,50 +40,50 @@ use WindowsAzure\Common\Internal\Utilities;
  */
 class AcquireLeaseResult
 {
-    /**
-     * @var string
-     */
-    private $_leaseId;
+	/**
+	 * @var string
+	 */
+	private $_leaseId;
 
-    /**
-     * Creates AcquireLeaseResult from response headers
-     *
-     * @param array $headers response headers
-     *
-     * @return AcquireLeaseResult
-     */
-    public static function create($headers)
-    {
-        $result = new AcquireLeaseResult();
+	/**
+	 * Creates AcquireLeaseResult from response headers
+	 *
+	 * @param array $headers response headers
+	 *
+	 * @return AcquireLeaseResult
+	 */
+	public static function create( $headers )
+	{
+		$result = new AcquireLeaseResult();
 
-        $result->setLeaseId(
-            Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)
-        );
+		$result->setLeaseId(
+			Utilities::tryGetValue( $headers, Resources::X_MS_LEASE_ID )
+		);
 
-        return $result;
-    }
+		return $result;
+	}
 
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
+	/**
+	 * Gets lease Id for the blob
+	 *
+	 * @return string
+	 */
+	public function getLeaseId()
+	{
+		return $this->_leaseId;
+	}
 
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
-    }
+	/**
+	 * Sets lease Id for the blob
+	 *
+	 * @param string $leaseId the blob lease id.
+	 *
+	 * @return void
+	 */
+	public function setLeaseId( $leaseId )
+	{
+		$this->_leaseId = $leaseId;
+	}
 }
 
 

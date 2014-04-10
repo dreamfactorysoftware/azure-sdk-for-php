@@ -37,29 +37,29 @@ namespace WindowsAzure\Blob\Models;
  */
 class BlobServiceOptions
 {
-    private $_timeout;
+	private $_timeout;
 
-    /**
-     * Gets timeout.
-     *
-     * @return string.
-     */
-    public function getTimeout()
-    {
-        return $this->_timeout;
-    }
+	/**
+	 * Gets timeout.
+	 *
+	 * @return string.
+	 */
+	public function getTimeout()
+	{
+		return $this->_timeout;
+	}
 
-    /**
-     * Sets timeout.
-     *
-     * @param string $timeout value.
-     *
-     * @return void
-     */
-    public function setTimeout($timeout)
-    {
-        $this->_timeout = $timeout;
-    }
+	/**
+	 * Sets timeout.
+	 *
+	 * @param string $timeout value.
+	 *
+	 * @return void
+	 */
+	public function setTimeout( $timeout )
+	{
+		$this->_timeout = $timeout;
+	}
 }
 
 

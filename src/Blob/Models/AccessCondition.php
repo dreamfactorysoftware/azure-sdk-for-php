@@ -42,212 +42,208 @@ use WindowsAzure\Common\Internal\WindowsAzureUtilities;
  */
 class AccessCondition
 {
-    /**
-     * Represents the header type.
-     *
-     * @var string
-     */
-    private $_header = Resources::EMPTY_STRING;
+	/**
+	 * Represents the header type.
+	 *
+	 * @var string
+	 */
+	private $_header = Resources::EMPTY_STRING;
 
-    /**
-     * Represents the header value.
-     *
-     * @var string
-     */
-    private $_value;
+	/**
+	 * Represents the header value.
+	 *
+	 * @var string
+	 */
+	private $_value;
 
-    /**
-     * Constructor
-     *
-     * @param string $headerType header name
-     * @param string $value      header value
-     */
-    protected function __construct( $headerType, $value )
-    {
-        $this->setHeader( $headerType );
-        $this->setValue( $value );
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param string $headerType header name
+	 * @param string $value      header value
+	 */
+	protected function __construct( $headerType, $value )
+	{
+		$this->setHeader( $headerType );
+		$this->setValue( $value );
+	}
 
-    /**
-     * Specifies that no access condition is set.
-     *
-     * @return \WindowsAzure\Blob\Models\AccessCondition
-     */
-    public static function none()
-    {
-        return new AccessCondition( Resources::EMPTY_STRING, null );
-    }
+	/**
+	 * Specifies that no access condition is set.
+	 *
+	 * @return \WindowsAzure\Blob\Models\AccessCondition
+	 */
+	public static function none()
+	{
+		return new AccessCondition( Resources::EMPTY_STRING, null );
+	}
 
-    /**
-     * Returns an access condition such that an operation will be performed only if
-     * the resource's ETag value matches the specified ETag value.
-     * <p>
-     * Setting this access condition modifies the request to include the HTTP
-     * <i>If-Match</i> conditional header. If this access condition is set, the
-     * operation is performed only if the ETag of the resource matches the specified
-     * ETag.
-     * <p>
-     * For more information, see
-     * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
-     * Specifying Conditional Headers for Blob Service Operations</a>.
-     *
-     * @param string $etag a string that represents the ETag value to check.
-     *
-     * @return \WindowsAzure\Blob\Models\AccessCondition
-     */
-    public static function ifMatch( $etag )
-    {
-        return new AccessCondition( Resources::IF_MATCH, $etag );
-    }
+	/**
+	 * Returns an access condition such that an operation will be performed only if
+	 * the resource's ETag value matches the specified ETag value.
+	 * <p>
+	 * Setting this access condition modifies the request to include the HTTP
+	 * <i>If-Match</i> conditional header. If this access condition is set, the
+	 * operation is performed only if the ETag of the resource matches the specified
+	 * ETag.
+	 * <p>
+	 * For more information, see
+	 * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
+	 * Specifying Conditional Headers for Blob Service Operations</a>.
+	 *
+	 * @param string $etag a string that represents the ETag value to check.
+	 *
+	 * @return \WindowsAzure\Blob\Models\AccessCondition
+	 */
+	public static function ifMatch( $etag )
+	{
+		return new AccessCondition( Resources::IF_MATCH, $etag );
+	}
 
-    /**
-     * Returns an access condition such that an operation will be performed only if
-     * the resource has been modified since the specified time.
-     * <p>
-     * Setting this access condition modifies the request to include the HTTP
-     * <i>If-Modified-Since</i> conditional header. If this access condition is set,
-     * the operation is performed only if the resource has been modified since the
-     * specified time.
-     * <p>
-     * For more information, see
-     * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
-     * Specifying Conditional Headers for Blob Service Operations</a>.
-     *
-     * @param \DateTime $lastModified date that represents the last-modified
-     *                                time to check for the resource.
-     *
-     * @return \WindowsAzure\Blob\Models\AccessCondition
-     */
-    public static function ifModifiedSince( $lastModified )
-    {
-        Validate::isDate( $lastModified );
+	/**
+	 * Returns an access condition such that an operation will be performed only if
+	 * the resource has been modified since the specified time.
+	 * <p>
+	 * Setting this access condition modifies the request to include the HTTP
+	 * <i>If-Modified-Since</i> conditional header. If this access condition is set,
+	 * the operation is performed only if the resource has been modified since the
+	 * specified time.
+	 * <p>
+	 * For more information, see
+	 * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
+	 * Specifying Conditional Headers for Blob Service Operations</a>.
+	 *
+	 * @param \DateTime $lastModified date that represents the last-modified
+	 *                                time to check for the resource.
+	 *
+	 * @return \WindowsAzure\Blob\Models\AccessCondition
+	 */
+	public static function ifModifiedSince( $lastModified )
+	{
+		Validate::isDate( $lastModified );
 
-        return new AccessCondition(
-            Resources::IF_MODIFIED_SINCE,
-            $lastModified
-        );
-    }
+		return new AccessCondition(
+			Resources::IF_MODIFIED_SINCE, $lastModified
+		);
+	}
 
-    /**
-     * Returns an access condition such that an operation will be performed only if
-     * the resource's ETag value does not match the specified ETag value.
-     * <p>
-     * Setting this access condition modifies the request to include the HTTP
-     * <i>If-None-Match</i> conditional header. If this access condition is set, the
-     * operation is performed only if the ETag of the resource does not match the
-     * specified ETag.
-     * <p>
-     * For more information,
-     * see <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
-     * Specifying Conditional Headers for Blob Service Operations</a>.
-     *
-     * @param string $etag string that represents the ETag value to check.
-     *
-     * @return \WindowsAzure\Blob\Models\AccessCondition
-     */
-    public static function ifNoneMatch( $etag )
-    {
-        return new AccessCondition( Resources::IF_NONE_MATCH, $etag );
-    }
+	/**
+	 * Returns an access condition such that an operation will be performed only if
+	 * the resource's ETag value does not match the specified ETag value.
+	 * <p>
+	 * Setting this access condition modifies the request to include the HTTP
+	 * <i>If-None-Match</i> conditional header. If this access condition is set, the
+	 * operation is performed only if the ETag of the resource does not match the
+	 * specified ETag.
+	 * <p>
+	 * For more information,
+	 * see <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
+	 * Specifying Conditional Headers for Blob Service Operations</a>.
+	 *
+	 * @param string $etag string that represents the ETag value to check.
+	 *
+	 * @return \WindowsAzure\Blob\Models\AccessCondition
+	 */
+	public static function ifNoneMatch( $etag )
+	{
+		return new AccessCondition( Resources::IF_NONE_MATCH, $etag );
+	}
 
-    /**
-     * Returns an access condition such that an operation will be performed only if
-     * the resource has not been modified since the specified time.
-     * <p>
-     * Setting this access condition modifies the request to include the HTTP
-     * <i>If-Unmodified-Since</i> conditional header. If this access condition is
-     * set, the operation is performed only if the resource has not been modified
-     * since the specified time.
-     * <p>
-     * For more information, see
-     * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
-     * Specifying Conditional Headers for Blob Service Operations</a>.
-     *
-     * @param \DateTime $lastModified date that represents the last-modified
-     *                                time to check for the resource.
-     *
-     * @return \WindowsAzure\Blob\Models\AccessCondition
-     */
-    public static function ifNotModifiedSince( $lastModified )
-    {
-        Validate::isDate( $lastModified );
+	/**
+	 * Returns an access condition such that an operation will be performed only if
+	 * the resource has not been modified since the specified time.
+	 * <p>
+	 * Setting this access condition modifies the request to include the HTTP
+	 * <i>If-Unmodified-Since</i> conditional header. If this access condition is
+	 * set, the operation is performed only if the resource has not been modified
+	 * since the specified time.
+	 * <p>
+	 * For more information, see
+	 * <a href= 'http://go.microsoft.com/fwlink/?LinkID=224642&clcid=0x409'>
+	 * Specifying Conditional Headers for Blob Service Operations</a>.
+	 *
+	 * @param \DateTime $lastModified date that represents the last-modified
+	 *                                time to check for the resource.
+	 *
+	 * @return \WindowsAzure\Blob\Models\AccessCondition
+	 */
+	public static function ifNotModifiedSince( $lastModified )
+	{
+		Validate::isDate( $lastModified );
 
-        return new AccessCondition(
-            Resources::IF_UNMODIFIED_SINCE,
-            $lastModified
-        );
-    }
+		return new AccessCondition(
+			Resources::IF_UNMODIFIED_SINCE, $lastModified
+		);
+	}
 
-    /**
-     * Sets header type
-     *
-     * @param string $headerType can be one of Resources
-     *
-     * @return void
-     */
-    public function setHeader( $headerType )
-    {
-        $valid = AccessCondition::isValid( $headerType );
-        Validate::isTrue( $valid, Resources::INVALID_HT_MSG );
+	/**
+	 * Sets header type
+	 *
+	 * @param string $headerType can be one of Resources
+	 *
+	 * @return void
+	 */
+	public function setHeader( $headerType )
+	{
+		$valid = AccessCondition::isValid( $headerType );
+		Validate::isTrue( $valid, Resources::INVALID_HT_MSG );
 
-        $this->_header = $headerType;
-    }
+		$this->_header = $headerType;
+	}
 
-    /**
-     * Gets header type
-     *
-     * @return string.
-     */
-    public function getHeader()
-    {
-        return $this->_header;
-    }
+	/**
+	 * Gets header type
+	 *
+	 * @return string.
+	 */
+	public function getHeader()
+	{
+		return $this->_header;
+	}
 
-    /**
-     * Sets the header value
-     *
-     * @param string $value the value to use
-     *
-     * @return void
-     */
-    public function setValue( $value )
-    {
-        $this->_value = $value;
-    }
+	/**
+	 * Sets the header value
+	 *
+	 * @param string $value the value to use
+	 *
+	 * @return void
+	 */
+	public function setValue( $value )
+	{
+		$this->_value = $value;
+	}
 
-    /**
-     * Gets the header value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->_value;
-    }
+	/**
+	 * Gets the header value
+	 *
+	 * @return string
+	 */
+	public function getValue()
+	{
+		return $this->_value;
+	}
 
-    /**
-     * Check if the $headerType belongs to valid header types
-     *
-     * @param string $headerType candidate header type
-     *
-     * @return boolean
-     */
-    public static function isValid( $headerType )
-    {
-        if ( $headerType == Resources::EMPTY_STRING
-             || $headerType == Resources::IF_UNMODIFIED_SINCE
-             || $headerType == Resources::IF_MATCH
-             || $headerType == Resources::IF_MODIFIED_SINCE
-             || $headerType == Resources::IF_NONE_MATCH
-        )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+	/**
+	 * Check if the $headerType belongs to valid header types
+	 *
+	 * @param string $headerType candidate header type
+	 *
+	 * @return boolean
+	 */
+	public static function isValid( $headerType )
+	{
+		if ( $headerType == Resources::EMPTY_STRING ||
+			 $headerType == Resources::IF_UNMODIFIED_SINCE ||
+			 $headerType == Resources::IF_MATCH ||
+			 $headerType == Resources::IF_MODIFIED_SINCE ||
+			 $headerType == Resources::IF_NONE_MATCH
+		)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
-
-

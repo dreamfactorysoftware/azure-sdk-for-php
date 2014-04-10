@@ -37,32 +37,32 @@ namespace WindowsAzure\Blob\Models;
  */
 class BlobPrefix
 {
-    /**
-     * @var string
-     */
-    private $_name;
+	/**
+	 * @var string
+	 */
+	private $_name;
 
-    /**
-     * Gets blob name.
-     *
-     * @return string.
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
+	/**
+	 * Gets blob name.
+	 *
+	 * @return string.
+	 */
+	public function getName()
+	{
+		return $this->_name;
+	}
 
-    /**
-     * Sets blob name.
-     *
-     * @param string $name value.
-     *
-     * @return void
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-    }
+	/**
+	 * Sets blob name.
+	 *
+	 * @param string $name value.
+	 *
+	 * @return void
+	 */
+	public function setName( $name )
+	{
+		$this->_name = $name;
+	}
 }
 
 

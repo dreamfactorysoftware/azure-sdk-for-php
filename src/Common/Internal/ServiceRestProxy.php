@@ -73,7 +73,7 @@ class ServiceRestProxy extends RestProxy
      * Sends HTTP request with the specified HTTP call context.
      *
      * @param \WindowsAzure\Common\Internal\Http\HttpCallContext $context The HTTP
-     *                                                                   call context.
+     *                                                                    call context.
      *
      * @return \HTTP_Request2_Response
      */
@@ -87,13 +87,13 @@ class ServiceRestProxy extends RestProxy
     /**
      * Sends HTTP request with the specified parameters.
      *
-     * @param string $method         HTTP method used in the request
-     * @param array  $headers        HTTP headers.
-     * @param array  $queryParams    URL query parameters.
-     * @param array  $postParameters The HTTP POST parameters.
-     * @param string $path           URL path
-     * @param int    $statusCode     Expected status code received in the response
-     * @param string $body           Request body
+     * @param string    $method         HTTP method used in the request
+     * @param array     $headers        HTTP headers.
+     * @param array     $queryParams    URL query parameters.
+     * @param array     $postParameters The HTTP POST parameters.
+     * @param string    $path           URL path
+     * @param array|int $statusCode     Expected status code received in the response
+     * @param string    $body           Request body
      *
      * @return \HTTP_Request2_Response
      */
@@ -164,6 +164,7 @@ class ServiceRestProxy extends RestProxy
      * @param array           $headers         The array of request headers.
      * @param AccessCondition $accessCondition The access condition object.
      *
+     * @throws \Exception
      * @return array
      */
     public function addOptionalSourceAccessConditionHeader(

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LICENSE: Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,19 +53,19 @@ const PACKAGE_RELEASE_NOTES = '
     * Uploading files to Media Services storage
 ';
 $dependencies = array(
-    array('required', 'HTTP_Request2',            'pear.php.net'),
-    array('required', 'Mail_Mime',                'pear.php.net'),
-    array('required', 'Mail_mimeDecode',          'pear.php.net'),
-    array('optional', 'PEAR_PackageFileManager2', 'pear.php.net'),
-	array('optional', 'Pirum', 					  'pear.pirum-project.org')
+	array( 'required', 'HTTP_Request2', 'pear.php.net' ),
+	array( 'required', 'Mail_Mime', 'pear.php.net' ),
+	array( 'required', 'Mail_mimeDecode', 'pear.php.net' ),
+	array( 'optional', 'PEAR_PackageFileManager2', 'pear.php.net' ),
+	array( 'optional', 'Pirum', 'pear.pirum-project.org' )
 );
 $ignore = array(
-    'build/',
+	'build/',
 	'tests/',
 	'channel/'
 );
 $include = array(
-    'README.md',
+	'README.md',
 	'LICENSE.txt',
 	'WindowsAzure/'
 );
