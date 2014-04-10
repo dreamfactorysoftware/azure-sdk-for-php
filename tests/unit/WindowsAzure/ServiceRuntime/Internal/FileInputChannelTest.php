@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,12 +22,12 @@
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 namespace Tests\Unit\WindowsAzure\ServiceRuntime\Internal;
-use Tests\Framework\TestResources;
-use WindowsAzure\Common\Internal\Utilities;
+
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
 use WindowsAzure\ServiceRuntime\Internal\ChannelNotAvailableException;
 use WindowsAzure\ServiceRuntime\Internal\FileInputChannel;
-
-require_once 'vfsStream/vfsStream.php';
 
 /**
  * Unit tests for class FileInputChannel.
@@ -53,26 +53,26 @@ class FileInputChannelTest extends \PHPUnit_Framework_TestCase
         $fileContent = 'somecontent';
 
         // Setup
-        \vfsStreamWrapper::register(); 
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory($rootDirectory));
-        
-        $file = \vfsStream::newFile($fileName);
-        $file->setContent($fileContent); 
-        
-        \vfsStreamWrapper::getRoot()->addChild($file);
-        
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot( new vfsStreamDirectory( $rootDirectory ) );
+
+        $file = vfsStream::newFile( $fileName );
+        $file->setContent( $fileContent );
+
+        vfsStreamWrapper::getRoot()->addChild( $file );
+
         // Test
         $fileInputChannel = new FileInputChannel();
-        $inputStream = $fileInputChannel->getInputStream(\vfsStream::url($rootDirectory . '/' . $fileName));
-        
-        $inputChannelContents = stream_get_contents($inputStream);
-        $this->assertEquals($fileContent, $inputChannelContents);
-        
+        $inputStream = $fileInputChannel->getInputStream( vfsStream::url( $rootDirectory . '/' . $fileName ) );
+
+        $inputChannelContents = stream_get_contents( $inputStream );
+        $this->assertEquals( $fileContent, $inputChannelContents );
+
         $fileInputChannel->closeInputStream();
-        
+
         // invalid file
-        $this->setExpectedException(get_class(new ChannelNotAvailableException()));
-        $fileInputChannel->getInputStream(\vfsStream::url($rootDirectory . '/' . 'fakeinput'));
+        $this->setExpectedException( get_class( new ChannelNotAvailableException() ) );
+        $fileInputChannel->getInputStream( vfsStream::url( $rootDirectory . '/' . 'fakeinput' ) );
     }
 }
 

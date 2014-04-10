@@ -22,9 +22,12 @@
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 
-require dirname(__DIR__) . '/WindowsAzure/WindowsAzure.php';
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/mikey179/vfsStream/src/main/php/org/bovigo/vfs/vfsStream.php';
+require __DIR__ . '/../WindowsAzure/WindowsAzure.php';
 
 spl_autoload_register(
+
    function($class) {
       static $classes = null;
       if ($classes === null) {

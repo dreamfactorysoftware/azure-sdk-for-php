@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,13 +22,12 @@
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 namespace Tests\Unit\WindowsAzure\ServiceRuntime\Internal;
-use Tests\Framework\TestResources;
-use WindowsAzure\Common\Internal\Utilities;
+
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
 use WindowsAzure\ServiceRuntime\Internal\FileInputChannel;
 use WindowsAzure\ServiceRuntime\Internal\RuntimeVersionProtocolClient;
-use WindowsAzure\Common\Internal\Resources;
-
-require_once 'vfsStream/vfsStream.php';
 
 /**
  * Unit tests for class RuntimeVersionProtocolClient.
@@ -50,14 +49,15 @@ class RuntimeVersionProtocolClientTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $runtimeVersionProtocolClient =
-            new RuntimeVersionProtocolClient(new FileInputChannel());
-        
+            new RuntimeVersionProtocolClient( new FileInputChannel() );
+
         // Test
         $this->assertInstanceOf(
             'WindowsAzure\ServiceRuntime\Internal\RuntimeVersionProtocolClient',
-            $runtimeVersionProtocolClient);
+            $runtimeVersionProtocolClient
+        );
     }
-    
+
     /**
      * @covers WindowsAzure\ServiceRuntime\Internal\RuntimeVersionProtocolClient::getVersionMap
      */
@@ -66,52 +66,52 @@ class RuntimeVersionProtocolClientTest extends \PHPUnit_Framework_TestCase
         // Setup
         $rootDirectory = 'root';
 
-        \vfsStreamWrapper::register(); 
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory($rootDirectory));
-                
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot( new vfsStreamDirectory( $rootDirectory ) );
+
         $fileName = 'versionendpoint';
         $fileContent = '<?xml version="1.0" encoding="utf-8"?>' .
-            '<RuntimeServerDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' .
-            'xmlns:xsd="http://www.w3.org/2001/XMLSchema">' .
-            '<RuntimeServerEndpoints>' .
-            '<RuntimeServerEndpoint version="2011-03-08" path="myPath1" />' .
-            '<RuntimeServerEndpoint version="2012-03-08" path="myPath2" />' .
-            '</RuntimeServerEndpoints>' .
-            '</RuntimeServerDiscovery>';
-        
-        $file = \vfsStream::newFile($fileName);
-        $file->setContent($fileContent); 
+                       '<RuntimeServerDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' .
+                       'xmlns:xsd="http://www.w3.org/2001/XMLSchema">' .
+                       '<RuntimeServerEndpoints>' .
+                       '<RuntimeServerEndpoint version="2011-03-08" path="myPath1" />' .
+                       '<RuntimeServerEndpoint version="2012-03-08" path="myPath2" />' .
+                       '</RuntimeServerEndpoints>' .
+                       '</RuntimeServerDiscovery>';
 
-        \vfsStreamWrapper::getRoot()->addChild($file);
-        
+        $file = vfsStream::newFile( $fileName );
+        $file->setContent( $fileContent );
+
+        vfsStreamWrapper::getRoot()->addChild( $file );
+
         $runtimeVersionProtocolClient =
-            new RuntimeVersionProtocolClient(new FileInputChannel());
-        
+            new RuntimeVersionProtocolClient( new FileInputChannel() );
+
         // Test
         $versions = $runtimeVersionProtocolClient->getVersionMap(
-            \vfsStream::url($rootDirectory . '/' . $fileName)
+            vfsStream::url( $rootDirectory . '/' . $fileName )
         );
-        
-        $this->assertEquals('myPath1', $versions['2011-03-08']);
-        $this->assertEquals('myPath2', $versions['2012-03-08']);
-        
+
+        $this->assertEquals( 'myPath1', $versions['2011-03-08'] );
+        $this->assertEquals( 'myPath2', $versions['2012-03-08'] );
+
         // change to a single endpoint
         $fileContent = '<?xml version="1.0" encoding="utf-8"?>' .
-            '<RuntimeServerDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' .
-            'xmlns:xsd="http://www.w3.org/2001/XMLSchema">' .
-            '<RuntimeServerEndpoints>' .
-            '<RuntimeServerEndpoint version="2011-03-08" path="myPath1" />' .
-            '</RuntimeServerEndpoints>' .
-            '</RuntimeServerDiscovery>';
-        
-        $file->setContent($fileContent); 
-        
+                       '<RuntimeServerDiscovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' .
+                       'xmlns:xsd="http://www.w3.org/2001/XMLSchema">' .
+                       '<RuntimeServerEndpoints>' .
+                       '<RuntimeServerEndpoint version="2011-03-08" path="myPath1" />' .
+                       '</RuntimeServerEndpoints>' .
+                       '</RuntimeServerDiscovery>';
+
+        $file->setContent( $fileContent );
+
         $versions = $runtimeVersionProtocolClient->getVersionMap(
-            \vfsStream::url($rootDirectory . '/' . $fileName)
+            vfsStream::url( $rootDirectory . '/' . $fileName )
         );
-        
-        $this->assertEquals('myPath1', $versions['2011-03-08']);
-        $this->assertArrayNotHasKey('2012-03-08', $versions);
+
+        $this->assertEquals( 'myPath1', $versions['2011-03-08'] );
+        $this->assertArrayNotHasKey( '2012-03-08', $versions );
     }
 }
 

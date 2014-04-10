@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,13 +22,12 @@
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
 namespace Tests\Unit\WindowsAzure\ServiceRuntime\Internal;
-use Tests\Framework\TestResources;
-use WindowsAzure\Common\Internal\Utilities;
-use WindowsAzure\ServiceRuntime\Internal\ChannelNotAvailableException;
+
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStreamWrapper;
 use WindowsAzure\ServiceRuntime\Internal\FileInputChannel;
 use WindowsAzure\ServiceRuntime\Internal\FileOutputChannel;
-
-require_once 'vfsStream/vfsStream.php';
 
 /**
  * Unit tests for class FileOutputChannel.
@@ -51,28 +50,28 @@ class FileOutputChannelTest extends \PHPUnit_Framework_TestCase
         $rootDirectory = 'root';
         $fileName = 'test.txt';
         $fileContents = 'Hello World!';
-        
+
         // Setup
-        \vfsStreamWrapper::register(); 
-        \vfsStreamWrapper::setRoot(new \vfsStreamDirectory($rootDirectory));
-        
-        $file = \vfsStream::newFile($fileName);
-        \vfsStreamWrapper::getRoot()->addChild($file);
-        
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot( new vfsStreamDirectory( $rootDirectory ) );
+
+        $file = vfsStream::newFile( $fileName );
+        vfsStreamWrapper::getRoot()->addChild( $file );
+
         // Test
         $fileOutputChannel = new FileOutputChannel();
-        $outputStream = $fileOutputChannel->getOutputStream(\vfsStream::url($rootDirectory . '/' . $fileName));
+        $outputStream = $fileOutputChannel->getOutputStream( vfsStream::url( $rootDirectory . '/' . $fileName ) );
 
         // Write content to file
-        fwrite($outputStream, $fileContents);
-        fclose($outputStream);
+        fwrite( $outputStream, $fileContents );
+        fclose( $outputStream );
 
         // Test file content
         $fileInputChannel = new FileInputChannel();
-        $fileInputStream = $fileInputChannel->getInputStream(\vfsStream::url($rootDirectory . '/' . $fileName));
-        
-        $inputChannelContents = stream_get_contents($fileInputStream);
-        $this->assertEquals($fileContents, $inputChannelContents);
+        $fileInputStream = $fileInputChannel->getInputStream( vfsStream::url( $rootDirectory . '/' . $fileName ) );
+
+        $inputChannelContents = stream_get_contents( $fileInputStream );
+        $this->assertEquals( $fileContents, $inputChannelContents );
     }
 }
 
