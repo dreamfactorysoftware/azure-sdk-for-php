@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LICENSE: Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +20,6 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
-
 namespace WindowsAzure\Blob\Models;
 
 /**
@@ -35,110 +33,108 @@ namespace WindowsAzure\Blob\Models;
  * @version   Release: 0.4.0_2014-01
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
-class GetContainerAclResult
+class GetContainerACLResult
 {
-    /**
-     * @var ContainerAcl
-     */
-    private $_containerACL;
+	/**
+	 * @var \WindowsAzure\Blob\Models\ContainerACL
+	 */
+	private $_containerACL;
 
-    /**
-     * @var \DateTime
-     */
-    private $_lastModified;
+	/**
+	 * @var \DateTime
+	 */
+	private $_lastModified;
 
-    /**
-     * @var string
-     */
-    private $_etag;
+	/**
+	 * @var string
+	 */
+	private $_etag;
 
-    /**
-     * Parses the given array into signed identifiers
-     *
-     * @param string    $publicAccess container public access
-     * @param string    $etag         container etag
-     * @param \DateTime $lastModified last modification date
-     * @param array     $parsed       parsed response into array
-     *                                representation
-     *
-     * @return \WindowsAzure\Blob\Models\GetContainerAclResult
-     */
-    public static function create( $publicAccess, $etag, $lastModified, $parsed )
-    {
-        $result = new GetContainerAclResult();
-        $result->setETag( $etag );
-        $result->setLastModified( $lastModified );
-        $acl = ContainerAcl::create( $publicAccess, $parsed );
-        $result->setContainerAcl( $acl );
+	/**
+	 * Parses the given array into signed identifiers
+	 *
+	 * @param string    $publicAccess container public access
+	 * @param string    $etag         container etag
+	 * @param \DateTime $lastModified last modification date
+	 * @param array     $parsed       parsed response into array
+	 *                                representation
+	 *
+	 * @return \WindowsAzure\Blob\Models\GetContainerACLResult
+	 */
+	public static function create( $publicAccess, $etag, $lastModified, $parsed )
+	{
+		$result = new GetContainerAclResult();
+		$result->setETag( $etag );
+		$result->setLastModified( $lastModified );
+		$acl = ContainerACL::create( $publicAccess, $parsed );
+		$result->setContainerAcl( $acl );
 
-        return $result;
-    }
+		return $result;
+	}
 
-    /**
-     * Gets container ACL
-     *
-     * @return ContainerAcl
-     */
-    public function getContainerAcl()
-    {
-        return $this->_containerACL;
-    }
+	/**
+	 * Gets container ACL
+	 *
+	 * @return \WindowsAzure\Blob\Models\ContainerACL
+	 */
+	public function getContainerAcl()
+	{
+		return $this->_containerACL;
+	}
 
-    /**
-     * Sets container ACL
-     *
-     * @param ContainerAcl $containerACL value.
-     *
-     * @return void
-     */
-    public function setContainerAcl( $containerACL )
-    {
-        $this->_containerACL = $containerACL;
-    }
+	/**
+	 * Sets container ACL
+	 *
+	 * @param \WindowsAzure\Blob\Models\ContainerACL $containerACL value.
+	 *
+	 * @return void
+	 */
+	public function setContainerAcl( $containerACL )
+	{
+		$this->_containerACL = $containerACL;
+	}
 
-    /**
-     * Gets container lastModified.
-     *
-     * @return \DateTime.
-     */
-    public function getLastModified()
-    {
-        return $this->_lastModified;
-    }
+	/**
+	 * Gets container lastModified.
+	 *
+	 * @return \DateTime
+	 */
+	public function getLastModified()
+	{
+		return $this->_lastModified;
+	}
 
-    /**
-     * Sets container lastModified.
-     *
-     * @param \DateTime $lastModified value.
-     *
-     * @return void
-     */
-    public function setLastModified( $lastModified )
-    {
-        $this->_lastModified = $lastModified;
-    }
+	/**
+	 * Sets container lastModified.
+	 *
+	 * @param \DateTime $lastModified value.
+	 *
+	 * @return void
+	 */
+	public function setLastModified( $lastModified )
+	{
+		$this->_lastModified = $lastModified;
+	}
 
-    /**
-     * Gets container etag.
-     *
-     * @return string.
-     */
-    public function getETag()
-    {
-        return $this->_etag;
-    }
+	/**
+	 * Gets container etag.
+	 *
+	 * @return string.
+	 */
+	public function getETag()
+	{
+		return $this->_etag;
+	}
 
-    /**
-     * Sets container etag.
-     *
-     * @param string $etag value.
-     *
-     * @return void
-     */
-    public function setETag( $etag )
-    {
-        $this->_etag = $etag;
-    }
+	/**
+	 * Sets container etag.
+	 *
+	 * @param string $etag value.
+	 *
+	 * @return void
+	 */
+	public function setETag( $etag )
+	{
+		$this->_etag = $etag;
+	}
 }
-
-

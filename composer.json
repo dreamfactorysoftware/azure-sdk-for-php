@@ -30,6 +30,11 @@
 			"dev-develop": "0.4.x-dev"
 		}
 	},
+	"autoload-dev":      {
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
+	},
 	"autoload":          {
 		"psr-4": {
 			"WindowsAzure\\": "src/"

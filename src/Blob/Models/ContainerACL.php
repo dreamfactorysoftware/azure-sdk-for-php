@@ -1,5 +1,4 @@
 <?php
-
 /**
  * LICENSE: Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +40,7 @@ use WindowsAzure\Common\Internal\Validate;
  * @version   Release: 0.4.0_2014-01
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
-class ContainerAcl
+class ContainerACL
 {
 	/**
 	 * All available types can be found in PublicAccessType
@@ -68,11 +67,11 @@ class ContainerAcl
 	 * @param string $publicAccess The container public access.
 	 * @param array  $parsed       The parsed response into array representation.
 	 *
-	 * @return void
+	 * @return $this
 	 */
 	public static function create( $publicAccess, $parsed )
 	{
-		$result = new ContainerAcl();
+		$result = new static();
 		$result->_publicAccess = $publicAccess;
 		$result->_signedIdentifiers = array();
 
@@ -210,7 +209,7 @@ class ContainerAcl
 	{
 		$properties = array(
 			XmlSerializer::DEFAULT_TAG => 'SignedIdentifier',
-			XmlSerializer::ROOT_NAME   => self::$xmlRootName
+			XmlSerializer::ROOT_NAME   => static::$xmlRootName
 		);
 
 		return $xmlSerializer->serialize( $this->toArray(), $properties );
