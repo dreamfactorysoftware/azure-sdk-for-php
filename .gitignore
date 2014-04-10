@@ -11,5 +11,5 @@ cache.properties
 vendor
 nbproject
 phpcs-checkstyle.tmp
-.idea/
+.idea
 log/

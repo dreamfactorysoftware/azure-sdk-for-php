@@ -15,16 +15,16 @@
         "pear-pear.php.net/Mail_mimeDecode":  "*",
         "pear-pear.php.net/Mail_Mime":        "*"
     },
-    
+
     "repositories": [
         {
             "type": "pear",
             "url": "http://pear.php.net"
         }
     ],
-    
+
     "autoload": {
         "psr-0": { "WindowsAzure\\": "" }
     }
-    
+
 }
