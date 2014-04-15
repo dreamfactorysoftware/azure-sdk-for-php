@@ -21,11 +21,10 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
  * @link      https://github.com/windowsazure/azure-sdk-for-php
  */
-
 namespace WindowsAzure\Common\Internal\Http;
-require_once 'PEAR.php';
-require_once 'Mail/mimeDecode.php';
-require_once 'HTTP/Request2/Response.php';
+
+use Mail_mimeDecode\mimeDecode;
+use HTTP_Request2_Response;
 use WindowsAzure\Common\Internal\Resources;
 use WindowsAzure\Common\Internal\Validate;
 use WindowsAzure\Common\ServiceException;
