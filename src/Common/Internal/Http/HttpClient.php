@@ -23,11 +23,14 @@
  */
 
 namespace WindowsAzure\Common\Internal\Http;
-
-use HTTP_Request2;
+use WindowsAzure\Common\Internal\Http\IHttpClient;
+use WindowsAzure\Common\Internal\IServiceFilter;
 use WindowsAzure\Common\Internal\Resources;
-use WindowsAzure\Common\Internal\Validate;
 use WindowsAzure\Common\ServiceException;
+use WindowsAzure\Common\Internal\Validate;
+use WindowsAzure\Common\Internal\Http\IUrl;
+
+require_once 'HTTP/Request2.php';
 
 /**
  * HTTP client which sends and receives HTTP requests and responses.
