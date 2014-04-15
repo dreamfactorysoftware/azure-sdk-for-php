@@ -111,12 +111,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dreamfactorysoftware/Mail_mimeDecode.git",
-                "reference": "749a32a7a79df2ccdba00937bd5cdcebe9487c7f"
+                "reference": "a53c1ce051b212e23f7f67ea8d31015640de1129"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dreamfactorysoftware/Mail_mimeDecode/zipball/749a32a7a79df2ccdba00937bd5cdcebe9487c7f",
-                "reference": "749a32a7a79df2ccdba00937bd5cdcebe9487c7f",
+                "url": "https://api.github.com/repos/dreamfactorysoftware/Mail_mimeDecode/zipball/a53c1ce051b212e23f7f67ea8d31015640de1129",
+                "reference": "a53c1ce051b212e23f7f67ea8d31015640de1129",
                 "shasum": ""
             },
             "require": {
@@ -128,7 +128,7 @@
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Mail_mimeDecode": "./"
+                    "Mail_mimeDecode": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "More info available on: http://pear.php.net/package/Mail_mimeDecode",
-            "time": "2014-02-21 22:56:36"
+            "time": "2014-04-15 19:29:16"
         },
         {
             "name": "pear/net_url2",
