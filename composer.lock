@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "90d71db8016b6c26d660f608833ccc5f",
+    "hash": "1d90722b00eccf61a6c6aeaa6df7ae48",
     "packages": [
         {
             "name": "pear-pear.php.net/Archive_Tar",
@@ -667,12 +667,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4"
+                "reference": "99fb0e0037cbe5bc76421e3aa2af8f1914389f6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/cee3067d680232674c6505d91db9d3d635a9a8f4",
-                "reference": "cee3067d680232674c6505d91db9d3d635a9a8f4",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/99fb0e0037cbe5bc76421e3aa2af8f1914389f6f",
+                "reference": "99fb0e0037cbe5bc76421e3aa2af8f1914389f6f",
                 "shasum": ""
             },
             "require": {
@@ -707,7 +707,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-26 11:51:10"
+            "time": "2014-04-16 10:36:21"
         }
     ],
     "aliases": [
