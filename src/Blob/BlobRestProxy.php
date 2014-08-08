@@ -1283,7 +1283,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 		$headers = array();
 		$postParams = array();
 		$queryParams = array();
-		$bodySize = 0;
+		$bodySize = null;
 		$path = $this->_createPath( $container, $blob );
 		$statusCode = Resources::STATUS_CREATED;
 
@@ -1307,7 +1307,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 		}
 
 		// if we have a size we can try to one shot this, else failsafe on block upload
-		if ( $bodySize && $bodySize <= $this->_SingleBlobUploadThresholdInBytes )
+		if ( isset($bodySize) && $bodySize <= $this->_SingleBlobUploadThresholdInBytes )
 		{
 			$headers = $this->_addCreateBlobOptionalHeaders( $options, $headers );
 
@@ -1340,7 +1340,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 			// This is for large or failsafe upload
 			$end = 0;
 			$counter = 0;
-			$body = '';
 			$blockIds = array();
 			// if threshold is lower than 4mb, honor threshold, else use 4mb
 			$blockSize = ( $this->_SingleBlobUploadThresholdInBytes < 4194304 ) ? $this->_SingleBlobUploadThresholdInBytes : 4194304;
@@ -1441,7 +1440,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 	 * @param string                        $content   the blob block contents
 	 * @param Models\CreateBlobBlockOptions $options   optional parameters
 	 *
-	 * @return void
+	 * @return CopyBlobResult
 	 *
 	 * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135726.aspx
 	 */
